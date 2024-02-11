@@ -1,0 +1,1 @@
+{"version":3,"file":"main.css","mappings":";;;AAAA;EACI,sBAAsB;;AAG1B;EACI,oBAAoB;;AAGxB;EACI,qBAAqB","sources":["webpack:///./main.scss"],"sourcesContent":["*{\r\n    box-sizing: border-box;\r\n}\r\n\r\nh1{\r\n    color: palevioletred;\r\n}\r\n\r\nh2{\r\n    color: cornflowerblue;\r\n}"],"names":[],"sourceRoot":""}

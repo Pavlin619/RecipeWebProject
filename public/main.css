@@ -1,0 +1,14 @@
+/*!*************************************************************************************************************************************************!*\
+  !*** css ../node_modules/css-loader/dist/cjs.js!../node_modules/postcss-loader/dist/cjs.js!../node_modules/sass-loader/dist/cjs.js!./main.scss ***!
+  \*************************************************************************************************************************************************/
+* {
+  box-sizing: border-box; }
+
+h1 {
+  color: palevioletred; }
+
+h2 {
+  color: cornflowerblue; }
+
+
+/*# sourceMappingURL=main.css.map*/
