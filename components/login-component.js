@@ -4,7 +4,7 @@ import {
   css,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
-class LoginForm extends LitElement {
+ class LoginForm extends LitElement {
   static styles = css`
     main {
       position: fixed;
@@ -145,7 +145,7 @@ class LoginForm extends LitElement {
             />
           </div>
           <section class="newAccount-checkbox">
-            <a href="../signup/signup.html" id="newAccount"
+            <a id="newAccount"
               >You do not have an account? Create new one!</a
             >
             <div class="checkbox">

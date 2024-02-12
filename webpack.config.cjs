@@ -5,7 +5,7 @@ module.exports={
     mode: 'development',
     devtool: 'source-map',
     context: path.resolve(__dirname, 'src'),
-    entry: ['./main.js','./main.scss'],
+    entry: ['./main.js','./main.css'],
     output:{
         path: path.resolve(__dirname, 'public')
     },
@@ -23,6 +23,7 @@ module.exports={
                 {
                     loader: MiniCssExtractPlugin.loader,
                     options: {
+                        presets: ['@babel/preset-env'],
                     }
                 },
                 'css-loader',

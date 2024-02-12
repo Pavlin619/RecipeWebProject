@@ -4,7 +4,7 @@ import {
   css,
 } from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
 
-class RegisterForm extends LitElement {
+ class RegisterForm extends LitElement {
   static styles = css`
     main {
       position: fixed;
