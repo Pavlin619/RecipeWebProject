@@ -3,10 +3,19 @@ const router = new require("express").Router();
 const userModel = require("../models/User");
 const recipeRouter = require("./recipe");
 
-router.use("/recipes", recipeRouter);
+router.use("/", recipeRouter);
 
-router.get("/", (req, res) => {
-  res.render("index.html", { messege: "GET Users" });
+router.get("/:username", async (req, res) => {
+  const userExist = await userModel.findOne({ username: req.params.username });
+  if (!userExist)
+    return res.status(400).send(`User ${req.params.username} not exist`);
+
+  res.send(userExist);
+});
+
+router.get("/", async (req, res) => {
+  const userList = await userModel.find({});
+  res.send(userList);
 });
 
 //register
