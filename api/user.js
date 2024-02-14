@@ -5,6 +5,7 @@ const recipeRouter = require("./recipe");
 
 router.use("/", recipeRouter);
 
+//GET user
 router.get("/:username", async (req, res) => {
   const userExist = await userModel.findOne({ username: req.params.username });
   if (!userExist)
@@ -13,6 +14,7 @@ router.get("/:username", async (req, res) => {
   res.send(userExist);
 });
 
+//GET all users
 router.get("/", async (req, res) => {
   const userList = await userModel.find({});
   res.send(userList);
@@ -55,7 +57,6 @@ router.post("/login", async (req, res) => {
   const { error } = loginValidation(req.body);
   if (error) return res.status(400).send(error.details[0].message);
   const userExist = await userModel.findOne({ email: req.body.email });
-
   if (!userExist) return res.status(400).send("Email or Password Invalid");
 
   if (req.body.password !== userExist.password)
@@ -63,5 +64,20 @@ router.post("/login", async (req, res) => {
 
   res.send("Signed In Successfully");
 });
+
+
+//delete user
+router.delete("/:username",async (req,res)=>{
+  const userExist = await userModel.findOne({ email: req.body.email });
+  if (!userExist) return res.status(400).send("Email or Password Invalid");
+  try {
+    await userExist.deleteOne().then((val) => {
+      res.status(201).json({ message: "User Deleted Successfully", user: val });
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+})
+
 
 module.exports = router;

@@ -2,6 +2,7 @@ const router = new require("express").Router();
 const recipeModel = require("../models/Recipe");
 const userModel = require("../models/User");
 
+//GET user's recipes
 router.get("/:username/recipes", async (req, res) => {
   try {
     const user = req.params.username;
@@ -28,13 +29,22 @@ router.get("/:username/recipes", async (req, res) => {
   }
 });
 
-router.get("/:username/recipes/:recipeName", async (req, res) => {
-  const reicipeName = req.params.recipeName;
-  const recipeList = await recipeModel.find({
-    recipes: (recipes.recipeName = str.match(recipeName)),
-  });
-  res.send(recipeList);
+//GET recipe by regex
+router.get("/:username/recipes/:regex", async (req, res) => {
+  const recipeNameRegex = new RegExp(`.*${req.params.regex}.*`, 'i');
+
+  try {
+    const recipeList = await recipeModel.find({
+      recipeName: recipeNameRegex
+    });
+
+    res.send(recipeList);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
 });
+
 
 //POST
 router.post("/:username/recipes", async (req, res) => {
@@ -67,5 +77,6 @@ router.post("/:username/recipes", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;

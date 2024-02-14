@@ -1,4 +1,3 @@
-
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
@@ -13,7 +12,7 @@ const app = express();
 const port = 8080;
 const apiRouter = require("./api");
 
-//Connect to db
+//Connect to db ---------------
 const url=`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nqoas00.mongodb.net/?retryWrites=true&w=majority`;
 mongoose.connect(url,{
     useNewUrlParser: true,
@@ -21,10 +20,11 @@ mongoose.connect(url,{
 }, ()=>{
     console.log("connected to db...");
 })
+//------------------------------------
 
 app.use(express.static(path.join(__dirname, "public")));
-app.use(express.static(path.join(__dirname, "components")));
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
+app.use(express.static(path.join(__dirname, "assets")));
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
