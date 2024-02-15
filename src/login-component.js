@@ -1,10 +1,6 @@
-import {
-  LitElement,
-  html,
-  css,
-} from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+import { LitElement, html, css } from "lit";
 
- class LoginForm extends LitElement {
+class LoginForm extends LitElement {
   static styles = css`
     main {
       position: fixed;
@@ -119,9 +115,9 @@ import {
     return html`
       <main>
         <header class="header">
-          <img id="header-img" src="../assets/recipe_logo.png" />
+          <img id="header-img" src="./recipe_logo.png" />
         </header>
-        <form class="login-form">
+        <form class="login-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">
             <i class="fas fa-user" id="user"></i>
             <input
@@ -130,7 +126,6 @@ import {
               name="email"
               placeholder="Email:"
               class="login-input"
-              @input="${this.handleEmailInput}"
             />
           </div>
           <div class="input-div">
@@ -141,13 +136,10 @@ import {
               name="password"
               placeholder="Password:"
               class="login-input"
-              @input="${this.handlePasswordInput}"
             />
           </div>
           <section class="newAccount-checkbox">
-            <a id="newAccount"
-              >You do not have an account? Create new one!</a
-            >
+            <a href="/register" id="newAccount">You do not have an account? Create new one!</a>
             <div class="checkbox">
               <input type="checkbox" />
               <span>Remember me</span>
@@ -163,14 +155,11 @@ import {
     `;
   }
 
-  handleEmailInput(event) {
-    console.log('Email input value:', event.target.value);
-    // You can perform any additional logic here
-  }
-
-  handlePasswordInput(event) {
-    console.log('Password input value:', event.target.value);
-    // You can perform any additional logic here
+  submitHandler(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    console.log(...formData.entries());
+   
   }
 }
 

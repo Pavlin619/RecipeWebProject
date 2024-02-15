@@ -1,17 +1,19 @@
 const path = require("path");
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
+  entry: "./main.js",
   mode: "development",
   devtool: "source-map",
   context: path.resolve(__dirname, "src"),
-
-  entry: ["./main.js", "./main.css"],
   output: {
     path: path.resolve(__dirname, "public"),
-    filename: 'main.js',
+  },
+  devServer: {
+    open: true,
+    host: 'localhost',
+    historyApiFallback: true
   },
   module: {
     rules: [
@@ -21,47 +23,31 @@ module.exports = {
         loader: "babel-loader",
       },
       {
-        test: /\.css$/,
+        test: /.(scss|css)$/,
         exclude: /node_modules/,
-        loaders: [
-          "to-string-loader",
-          "css-loader",
-          "sass-loader",
-          "style-loader",
-        ],
-
         use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              presets: ["@babel/preset-env"],
-            },
-          },
-          { loader: "to-string-loader" },
-          { loader: "css-loader" },
-          { loader: "sass-loader" },
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          "sass-loader",
         ],
       },
       {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: ["file-loader"],
-      },
+        test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
+        type: 'asset',
+    }
     ],
   },
+  optimization: {
+    minimizer: [new TerserPlugin()],
+  },
   plugins: [
-    new MinifyPlugin(
-      {},
-      {
-        comments: false,
-      }
-    ),
-    new MiniCssExtractPlugin({
-      filename: "main.css",
-      disable: process.env.NODE_ENV === "development",
-    }),
     new HtmlWebpackPlugin({
-      template: "./views/index.html",
-      filename: "./views/index.html",
+        template: "./index.html",
+        filename: "./index.html",
+      }),
+    new MiniCssExtractPlugin({
+      filename: "[name].css",
     }),
   ],
 };

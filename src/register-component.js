@@ -2,7 +2,7 @@ import {
   LitElement,
   html,
   css,
-} from "https://cdn.jsdelivr.net/gh/lit/dist@3/core/lit-core.min.js";
+} from "lit";
 
  class RegisterForm extends LitElement {
   static styles = css`
@@ -114,9 +114,9 @@ import {
     return html`
       <main class="main">
         <header class="header">
-          <img id="header-img" src="../assets/recipe_logo.png" />
+          <img id="header-img" src="./recipe_logo.png" />
         </header>
-        <form class="register-form">
+        <form class="register-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">
             <input
               id="name"
@@ -124,7 +124,6 @@ import {
               name="name"
               placeholder="Username"
               class="registration-input"
-              @input="${this.handleUsernameInput}"
             />
           </div>
           <div class="input-div">
@@ -134,7 +133,6 @@ import {
               name="email"
               placeholder="Email"
               class="registration-input"
-              @input="${this.handleEmailInput}"
             />
           </div>
           <div class="input-div">
@@ -144,7 +142,6 @@ import {
               name="password"
               placeholder="Password"
               class="registration-input"
-              @input="${this.handlePasswordInput}"
             />
           </div>
           <div class="register-btn">
@@ -157,19 +154,10 @@ import {
     `;
   }
 
-  handleUsernameInput(event) {
-    console.log("Username input value:", event.target.value);
-    // You can perform any additional logic here
-  }
-
-  handleEmailInput(event) {
-    console.log("Email input value:", event.target.value);
-    // You can perform any additional logic here
-  }
-
-  handlePasswordInput(event) {
-    console.log("Password input value:", event.target.value);
-    // You can perform any additional logic here
+  submitHandler(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    console.log(...formData.entries());
   }
 }
 
