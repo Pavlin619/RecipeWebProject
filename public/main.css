@@ -2,8 +2,7 @@
   !*** css ../node_modules/css-loader/dist/cjs.js!../node_modules/postcss-loader/dist/cjs.js!../node_modules/sass-loader/dist/cjs.js!./main.css ***!
   \************************************************************************************************************************************************/
 * {
-  box-sizing: border-box;
-}
+  box-sizing: border-box; }
 
 body {
   background-image: url(ea4e0d12845f5aca0e24.jpg);
@@ -14,20 +13,10 @@ body {
   font-size: 16px; }
 
 h1 {
-  color: palevioletred;
-}
+  color: palevioletred; }
 
 h2 {
-  color: cornflowerblue;
-}
+  color: cornflowerblue; }
 
-body {
-  background-image: url('recipe_image.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px;
-}
 
 /*# sourceMappingURL=main.css.map*/

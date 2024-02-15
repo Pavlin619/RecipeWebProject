@@ -114,7 +114,7 @@ import {
     return html`
       <main class="main">
         <header class="header">
-          <img id="header-img" src="./recipe_logo.png" />
+          <img id="header-img" src="recipe_logo.jpg" />
         </header>
         <form class="register-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">
