@@ -3127,6 +3127,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header-component */ "./header-component.js");
 /* harmony import */ var _recipe_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recipe-component */ "./recipe-component.js");
 /* harmony import */ var _add_recipe_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./add-recipe-component */ "./add-recipe-component.js");
+/* harmony import */ var _search_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./search-component */ "./search-component.js");
 var _templateObject, _templateObject2, _templateObject3, _templateObject4;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3147,6 +3148,7 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 // home-page.js
+
 
 
 
@@ -3219,9 +3221,16 @@ var HomePage = /*#__PURE__*/function (_LitElement) {
     value: function render() {
       var _this2 = this;
       console.log(this.recipes);
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <app-header @add-recipe-clicked=", "></app-header>\n      ", "\n      <div class=\"recipe-list\">\n        ", "\n      </div>\n    "])), this.handleAddRecipeClicked, this.showAddRecipe ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<add-recipe-form @recipe-added=", "></add-recipe-form>"])), this.handleRecipeAddedSuccessfully) : '', this.recipes.map(function (recipe) {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <app-header @add-recipe-clicked=", "></app-header>\n      ", "\n      <search-component @search=", "></search-component>\n      <div class=\"recipe-list\">\n        ", "\n      </div>\n    "])), this.handleAddRecipeClicked, this.showAddRecipe ? (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<add-recipe-form @recipe-added=", "></add-recipe-form>"])), this.handleRecipeAddedSuccessfully) : '', this.handleSearch, this.recipes.map(function (recipe) {
         return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n            <recipe-component\n              @recipe-click=\"", "\"\n              photo=\"", "\"\n              recipeName=\"", "\"\n              recipeId=\"", "\"\n            ></recipe-component>\n          "])), _this2.handleRecipeClick, recipe.photo, recipe.recipeName, recipe._id);
       }));
+    }
+  }, {
+    key: "handleSearch",
+    value: function handleSearch(event) {
+      var data = event.detail.data;
+      this.recipes = data;
+      this.requestUpdate();
     }
   }, {
     key: "handleAddRecipeClicked",
@@ -3500,6 +3509,85 @@ var RegisterForm = /*#__PURE__*/function (_LitElement) {
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
 _defineProperty(RegisterForm, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    main {\n      position: fixed;\n      height: auto;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      border-radius: 10px;\n      background-color: white;\n      border: 1px solid #ccc;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n\n    .header {\n      text-align: center;\n    }\n\n    .error {\n      background-color: #f2dede;\n      color: #a94442;\n      padding: 10px;\n      width: 90%;\n      border-radius: 5px;\n      margin-top: 0;\n    }\n\n    #header-img {\n      margin-top: 32px;\n      height: 63px;\n      margin-bottom: 20px;\n    }\n\n    .register-form {\n      width: 100%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n\n    .input-div {\n      width: 90%;\n      height: 35px;\n      margin-bottom: 20px;\n    }\n\n    .registration-input {\n      width: 100%;\n      height: 100%;\n      border-radius: 5px;\n      border: 1px solid #e8e7e7;\n      padding-top: 4px;\n      padding-bottom: 4px;\n      padding-left: 8px;\n    }\n\n    .registration-input:hover {\n      border: 3px solid orange;\n    }\n\n    .register-btn {\n      width: 80%;\n      height: 30px;\n      margin-top: 10px;\n      margin-bottom: 20px;\n    }\n\n    #register-btn {\n      width: 100%;\n      height: 100%;\n      background-color: #ffd580;\n      color: white;\n      border-radius: 5px;\n      border: 2px solid #cccccc;\n    }\n\n    #register-btn:hover {\n      background-color: orange;\n    }\n\n    @media (max-width: 800px) {\n      main {\n        width: 60%;\n      }\n\n      #header-img {\n        width: 80%;\n      }\n    }\n\n    @media (min-width: 800px) and (max-width: 1200px) {\n      main {\n        width: 40%;\n      }\n    }\n\n    @media (min-width: 1200px) {\n      main {\n        width: 28%;\n      }\n    }\n  "]))));
 customElements.define("register-form", RegisterForm);
+
+/***/ }),
+
+/***/ "./search-component.js":
+/*!*****************************!*\
+  !*** ./search-component.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+var _templateObject, _templateObject2;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+var SearchComponent = /*#__PURE__*/function (_LitElement) {
+  _inherits(SearchComponent, _LitElement);
+  function SearchComponent() {
+    _classCallCheck(this, SearchComponent);
+    return _callSuper(this, SearchComponent, arguments);
+  }
+  _createClass(SearchComponent, [{
+    key: "render",
+    value: function render() {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <input id=\"searchInput\" type=\"text\" placeholder=\"Search...\" />\n      <button @click=", ">Search</button>\n    "])), this.handleSearchClick);
+    }
+  }, {
+    key: "handleSearchClick",
+    value: function handleSearchClick() {
+      var _this = this;
+      var searchInput = this.shadowRoot.getElementById("searchInput");
+      var searchTerm = searchInput.value.trim();
+      if (searchTerm !== "") {
+        // Trigger your request with the searchTerm
+        console.log("Search term:", searchTerm);
+        var options = {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json"
+          }
+        };
+        fetch("http://localhost:8080/users/recipes/".concat(searchTerm), options).then(function (response) {
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          return response.json();
+        }).then(function (data) {
+          console.log("Data successfully fetched:", data);
+          var event = new CustomEvent("search", {
+            detail: {
+              data: data
+            },
+            bubbles: true,
+            composed: true
+          });
+          _this.dispatchEvent(event);
+        })["catch"](function (error) {
+          return console.error("Fetch error:", error);
+        });
+      }
+    }
+  }]);
+  return SearchComponent;
+}(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
+_defineProperty(SearchComponent, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    :host {\n      display: flex;\n      align-items: center;\n      justify-content: center;\n    }\n\n    .search-container {\n      display: flex;\n      align-items: center;\n      background-color: #f8f8f8;\n      padding: 20px; /* Increase padding for a larger container */\n      border-radius: 8px; /* Increase border-radius for rounded corners */\n      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Enhance box shadow */\n    }\n\n    input {\n      padding: 12px; /* Increase padding for a larger input */\n      margin-right: 16px; /* Increase margin for more space between input and button */\n      border: 1px solid #ccc;\n      border-radius: 6px; /* Increase border-radius for rounded corners */\n      font-size: 16px; /* Increase font size for larger text */\n      width: 200px; /* Set a specific width for the input */\n    }\n\n    button {\n      padding: 12px; /* Increase padding for a larger button */\n      background-color: #4caf50;\n      color: white;\n      border: none;\n      border-radius: 6px; /* Increase border-radius for rounded corners */\n      cursor: pointer;\n      font-size: 16px; /* Increase font size for larger text */\n    }\n  "]))));
+customElements.define("search-component", SearchComponent);
 
 /***/ }),
 

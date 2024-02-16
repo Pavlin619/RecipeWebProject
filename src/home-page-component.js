@@ -3,6 +3,7 @@ import { LitElement, html, css } from "lit";
 import { AppHeader } from "./header-component";
 import { RecipeComponent } from "./recipe-component";
 import { AddRecipeForm } from "./add-recipe-component";
+import { SearchComponent } from "./search-component";
 
 class HomePage extends LitElement {
   static styles = css`
@@ -54,6 +55,7 @@ class HomePage extends LitElement {
     return html`
       <app-header @add-recipe-clicked=${this.handleAddRecipeClicked}></app-header>
       ${this.showAddRecipe ? html`<add-recipe-form @recipe-added=${this.handleRecipeAddedSuccessfully}></add-recipe-form>` : ''}
+      <search-component @search=${this.handleSearch}></search-component>
       <div class="recipe-list">
         ${this.recipes.map(
           (recipe) => html`
@@ -67,6 +69,12 @@ class HomePage extends LitElement {
         )}
       </div>
     `;
+  }
+
+  handleSearch(event) {
+      const data = event.detail.data;
+      this.recipes = data;
+      this.requestUpdate();
   }
 
   handleAddRecipeClicked() {
