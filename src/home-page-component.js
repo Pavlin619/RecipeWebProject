@@ -1,28 +1,67 @@
+// home-page.js
 import { LitElement, html, css } from "lit";
 import { AppHeader } from "./header-component";
-import { RecipeComponent } from "./recipe-component";
+import "./recipe-component"; // Import the recipe-component
 
 class HomePage extends LitElement {
-  static styles = css``;
+  static styles = css`
+    .recipe-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      margin:10px;
+    }
+  `;
+
+  static properties = {
+    recipes: { type: Array },
+  };
+
+  constructor() {
+    super();
+    this.recipes = [];
+    this.fetchRecipes();
+  }
+
+  async fetchRecipes() {
+    try {
+      const response = await fetch("/users/recipes");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      this.recipes = data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   handleRecipeClick(event) {
     const recipeId = event.detail.recipeId;
-    // Navigate to a new page displaying the details of the clicked recipe
     window.dispatchEvent(
       new CustomEvent("vaadin-router-go", {
         detail: { pathname: `/recipes/${recipeId}` },
       })
-    );  }
+    );
+  }
 
   render() {
+    console.log(this.recipes)
     return html`
       <app-header></app-header>
-      <recipe-component
-        @recipe-click="${this.handleRecipeClick.bind(this)}"
-        image-url="https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-        title="Delicious Pasta"
-        recipe-id="65cb8a91d8ca86945f3298d4"
-      ></recipe-component>
+      <div class="recipe-list">
+        ${this.recipes.map(
+          (recipe) => html`
+            <recipe-component
+              @recipe-click="${this.handleRecipeClick}"
+              photo="${recipe.photo}"
+              recipeName="${recipe.recipeName}"
+              recipeId="${recipe._id}"
+            ></recipe-component>
+          `
+        )}
+      </div>
     `;
   }
 }

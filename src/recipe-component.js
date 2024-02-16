@@ -9,8 +9,9 @@ class RecipeComponent extends LitElement {
       overflow: hidden;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       text-align: center;
-      width: 22%;
-      margin: 1%;
+      width: 20rem;
+      height:20rem;
+      margin: 5%;
       display: inline-block;
       box-sizing: border-box;
       border-color: white;
@@ -32,18 +33,14 @@ class RecipeComponent extends LitElement {
   `;
 
   static properties = {
-    title: { type: String },
-    imageUrl: { type: String },
+    recipeName: { type: String },
+    photo: { type: String },
     recipeId: { type: String },
   };
 
   constructor() {
     super();
-    this.title = "Recipe Title";
-    this.imageUrl =
-      "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
-    this.recipeId = "65cb8a91d8ca86945f3298d4";
-  }
+     }
 
   submitHandler() {
     this.dispatchEvent(
@@ -58,8 +55,8 @@ class RecipeComponent extends LitElement {
   render() {
     return html`
       <button @click="${this.submitHandler}" class="recipe-container">
-        <img class="recipe-image" src="${this.imageUrl}" alt="${this.title} Image" />
-        <div class="recipe-title">${this.title}</div>
+        <img class="recipe-image" src="${this.photo}" alt="${this.title} Image" />
+        <div class="recipe-title">${this.recipeName}</div>
       </button>
     `;
   }
