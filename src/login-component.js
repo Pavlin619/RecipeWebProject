@@ -136,10 +136,10 @@ class LoginForm extends LitElement {
         }
         console.log(res)
 
-        localStorage.setItem("auth",data);
+        localStorage.setItem("auth",JSON.stringify(data.email));
         window.dispatchEvent(
           new CustomEvent("vaadin-router-go", {
-            detail: { pathname: "/users" },
+            detail: { pathname: "/home" },
           })
         );
         return res.json();
@@ -185,10 +185,7 @@ class LoginForm extends LitElement {
             />
           </div>
           <section class="newAccount-checkbox">
-            <a href="/home" id="newAccount">You do not have an account? Create new one!</a>
-            <a href="/register" id="newAccount"
-              >You do not have an account? Create new one!</a
-            >
+            <a href="/register" id="newAccount">You do not have an account? Create new one!</a>
             <div class="checkbox">
               <input type="checkbox" />
               <span>Remember me</span>
@@ -204,11 +201,6 @@ class LoginForm extends LitElement {
     `;
   }
 
-  submitHandler(event) {
-    event.preventDefault();
-    const formData = new FormData(event.target);
-    console.log(...formData.entries());
-  }
 }
 
 customElements.define("login-form", LoginForm);

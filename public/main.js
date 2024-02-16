@@ -2993,7 +2993,7 @@ var AppHeader = /*#__PURE__*/function (_LitElement) {
   }]);
   return AppHeader;
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(AppHeader, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    header {\n      background-image: url(\"./header-background.jpg\");\n      color: #fff;\n      padding: 15px;\n      text-align: center;\n    }\n\n    .header-content {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n    }\n\n    .logo img {\n      width: 40px; /* Adjust the width of the icon as needed */\n      height: 40px; /* Adjust the height of the icon as needed */\n      margin-right: 10px;\n    }\n\n    h1 {\n      margin: 0;\n    }\n\n    nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n    }\n\n    nav li {\n      display: inline;\n      margin-right: 20px;\n    }\n\n    nav a {\n      text-decoration: none;\n      color: #fff;\n      font-weight: bold;\n    }\n\n    .buttons {\n      margin-top: 15px;\n    }\n\n    button {\n      padding: 10px 20px;\n      font-size: 16px;\n      cursor: pointer;\n      border: none;\n      border-radius: 5px;\n    }\n\n    #createRecipeBtn {\n      background-color: #2ecc71;\n      color: #fff;\n    }\n\n    #profileBtn {\n      background-color: orange;\n      color: #fff;\n    }\n\n    .labels-buttons {\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n    }\n  "]))));
+_defineProperty(AppHeader, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    header {\n      background-image: url(\"./header-background.jpg\");\n      background-color: orange;\n      color: #fff;\n      padding: 15px;\n      text-align: center;\n    }\n\n    .header-content {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n    }\n\n    .logo img {\n      width: 40px; /* Adjust the width of the icon as needed */\n      height: 40px; /* Adjust the height of the icon as needed */\n      margin-right: 10px;\n    }\n\n    h1 {\n      margin: 0;\n    }\n\n    nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n    }\n\n    nav li {\n      display: inline;\n      margin-right: 20px;\n    }\n\n    nav a {\n      text-decoration: none;\n      color: #fff;\n      font-weight: bold;\n    }\n\n    .buttons {\n      margin-top: 15px;\n    }\n\n    button {\n      padding: 10px 20px;\n      font-size: 16px;\n      cursor: pointer;\n      border: none;\n      border-radius: 5px;\n    }\n\n    #createRecipeBtn {\n      background-color: #2ecc71;\n      color: #fff;\n    }\n\n    #profileBtn {\n      background-color: orange;\n      color: #fff;\n    }\n\n    .labels-buttons {\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n    }\n  "]))));
 customElements.define("app-header", AppHeader);
 
 /***/ }),
@@ -3034,9 +3034,20 @@ var HomePage = /*#__PURE__*/function (_LitElement) {
     return _callSuper(this, HomePage, arguments);
   }
   _createClass(HomePage, [{
+    key: "handleRecipeClick",
+    value: function handleRecipeClick(event) {
+      var recipeId = event.detail.recipeId;
+      // Navigate to a new page displaying the details of the clicked recipe
+      window.dispatchEvent(new CustomEvent("vaadin-router-go", {
+        detail: {
+          pathname: "/recipes/".concat(recipeId)
+        }
+      }));
+    }
+  }, {
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <app-header></app-header>\n      <recipe-component\n        image-url=\"https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n        title=\"Delicious Pasta\"\n      ></recipe-component>\n    "])));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <app-header></app-header>\n      <recipe-component\n        @recipe-click=\"", "\"\n        image-url=\"https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n        title=\"Delicious Pasta\"\n        recipe-id=\"65cb8a91d8ca86945f3298d4\"\n      ></recipe-component>\n    "])), this.handleRecipeClick.bind(this));
     }
   }]);
   return HomePage;
@@ -3110,10 +3121,10 @@ var LoginForm = /*#__PURE__*/function (_LitElement) {
           throw new Error("Network response was not ok");
         }
         console.log(res);
-        localStorage.setItem("auth", data);
+        localStorage.setItem("auth", JSON.stringify(data.email));
         window.dispatchEvent(new CustomEvent("vaadin-router-go", {
           detail: {
-            pathname: "/users"
+            pathname: "/home"
           }
         }));
         return res.json();
@@ -3130,7 +3141,7 @@ var LoginForm = /*#__PURE__*/function (_LitElement) {
   }, {
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" alt=\"logo\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/home\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <a href=\"/register\" id=\"newAccount\"\n              >You do not have an account? Create new one!</a\n            >\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" alt=\"logo\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/register\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }]);
   return LoginForm;
@@ -3164,6 +3175,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+// recipe-component.js
 
 var RecipeComponent = /*#__PURE__*/function (_LitElement) {
   _inherits(RecipeComponent, _LitElement);
@@ -3171,28 +3183,43 @@ var RecipeComponent = /*#__PURE__*/function (_LitElement) {
     var _this;
     _classCallCheck(this, RecipeComponent);
     _this = _callSuper(this, RecipeComponent);
-    _this.title = 'Recipe Title';
-    _this.imageUrl = 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+    _this.title = "Recipe Title";
+    _this.imageUrl = "https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D";
+    _this.recipeId = "65cb8a91d8ca86945f3298d4";
     return _this;
   }
   _createClass(RecipeComponent, [{
+    key: "submitHandler",
+    value: function submitHandler() {
+      this.dispatchEvent(new CustomEvent("recipe-click", {
+        detail: {
+          recipeId: this.recipeId
+        },
+        bubbles: true,
+        composed: true
+      }));
+    }
+  }, {
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <div class=\"recipe-container\">\n        <img class=\"recipe-image\" src=\"", "\" alt=\"", " Image\">\n        <div class=\"recipe-title\">", "</div>\n      </div>\n    "])), this.imageUrl, this.title, this.title);
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <button @click=\"", "\" class=\"recipe-container\">\n        <img class=\"recipe-image\" src=\"", "\" alt=\"", " Image\" />\n        <div class=\"recipe-title\">", "</div>\n      </button>\n    "])), this.submitHandler, this.imageUrl, this.title, this.title);
     }
   }]);
   return RecipeComponent;
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(RecipeComponent, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .recipe-container {\n      background-color: white;\n      border-radius: 10px;\n      overflow: hidden;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n      text-align: center;\n      width: 22%; /* Adjust the width as needed */\n      margin: 1%; /* Adjust the margin as needed */\n      display: inline-block; /* Display recipes in a row */\n      box-sizing: border-box; /* Include padding and border in width/height */\n    }\n\n    .recipe-image {\n        width: 100%;\n        height: 60%; /* Adjust the height as needed */\n        border-top-left-radius: 10px;\n        border-top-right-radius: 10px;\n        object-fit: cover; /* Maintain aspect ratio and cover container */\n      }\n  \n      .recipe-title {\n        padding: 10px;\n        font-size: 14px; /* Adjust the font size as needed */\n        color: #333;\n      }\n  "]))));
+_defineProperty(RecipeComponent, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .recipe-container {\n      background-color: white;\n      border-radius: 10px;\n      overflow: hidden;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n      text-align: center;\n      width: 22%;\n      margin: 1%;\n      display: inline-block;\n      box-sizing: border-box;\n      border-color: white;\n    }\n\n    .recipe-image {\n      width: 100%;\n      height: 60%;\n      border-top-left-radius: 10px;\n      border-top-right-radius: 10px;\n      object-fit: cover;\n    }\n\n    .recipe-title {\n      padding: 10px;\n      font-size: 14px;\n      color: #333;\n    }\n  "]))));
 _defineProperty(RecipeComponent, "properties", {
   title: {
     type: String
   },
   imageUrl: {
     type: String
+  },
+  recipeId: {
+    type: String
   }
 });
-customElements.define('recipe-component', RecipeComponent);
+customElements.define("recipe-component", RecipeComponent);
 
 /***/ }),
 
@@ -6452,16 +6479,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var router = new _vaadin_router__WEBPACK_IMPORTED_MODULE_0__.Router(document.querySelector('body'));
+var router = new _vaadin_router__WEBPACK_IMPORTED_MODULE_0__.Router(document.querySelector("body"));
 router.setRoutes([{
   path: "/",
-  component: 'login-form'
+  component: "login-form"
 }, {
   path: "/register",
-  component: 'register-form'
+  component: "register-form"
 }, {
   path: "/home",
-  component: 'home-page'
+  component: "home-page"
+}, {
+  path: "/recipes/:recipeName",
+  component: "recipe-page"
 }]);
 })();
 
