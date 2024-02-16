@@ -2942,6 +2942,110 @@ Router.NavigationTrigger = {POPSTATE, CLICK};
 
 /***/ }),
 
+/***/ "./header-component.js":
+/*!*****************************!*\
+  !*** ./header-component.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+var _templateObject, _templateObject2;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+var AppHeader = /*#__PURE__*/function (_LitElement) {
+  _inherits(AppHeader, _LitElement);
+  function AppHeader() {
+    _classCallCheck(this, AppHeader);
+    return _callSuper(this, AppHeader, arguments);
+  }
+  _createClass(AppHeader, [{
+    key: "render",
+    value: function render() {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <header>\n        <div class=\"header-content\">\n          <div class=\"logo\">\n            <!-- Placeholder for an icon, you can replace it with your preferred icon image -->\n            <img src=\"./components/recipe_logo.png\" alt=\"Recipe Icon\" />\n          </div>\n          <div class=\"labels-buttons\">\n            <div class=\"labels\">\n              <nav>\n                <ul>\n                  <li><a href=\"#recipes\">Recipes</a></li>\n                  <li><a href=\"#about\">About</a></li>\n                </ul>\n              </nav>\n            </div>\n            <div class=\"buttons\">\n              <button\n                id=\"createRecipeBtn\"\n                @click=", "\n              >\n                Create a Recipe\n              </button>\n              <button id=\"profileBtn\" @click=", ">\n                Go to Profile\n              </button>\n            </div>\n          </div>\n        </div>\n      </header>\n    "])), this.handleCreateRecipeClick, this.handleProfileClick);
+    }
+  }, {
+    key: "handleCreateRecipeClick",
+    value: function handleCreateRecipeClick() {
+      // Your logic for the 'Create a Recipe' button click
+      console.log("Create a Recipe button clicked");
+    }
+  }, {
+    key: "handleProfileClick",
+    value: function handleProfileClick() {
+      // Your logic for the 'Go to Profile' button click
+      console.log("Go to Profile button clicked");
+    }
+  }]);
+  return AppHeader;
+}(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
+_defineProperty(AppHeader, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    header {\n      background-image: url(\"./header-background.jpg\");\n      color: #fff;\n      padding: 15px;\n      text-align: center;\n    }\n\n    .header-content {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n    }\n\n    .logo img {\n      width: 40px; /* Adjust the width of the icon as needed */\n      height: 40px; /* Adjust the height of the icon as needed */\n      margin-right: 10px;\n    }\n\n    h1 {\n      margin: 0;\n    }\n\n    nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n    }\n\n    nav li {\n      display: inline;\n      margin-right: 20px;\n    }\n\n    nav a {\n      text-decoration: none;\n      color: #fff;\n      font-weight: bold;\n    }\n\n    .buttons {\n      margin-top: 15px;\n    }\n\n    button {\n      padding: 10px 20px;\n      font-size: 16px;\n      cursor: pointer;\n      border: none;\n      border-radius: 5px;\n    }\n\n    #createRecipeBtn {\n      background-color: #2ecc71;\n      color: #fff;\n    }\n\n    #profileBtn {\n      background-color: orange;\n      color: #fff;\n    }\n\n    .labels-buttons {\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n    }\n  "]))));
+customElements.define("app-header", AppHeader);
+
+/***/ }),
+
+/***/ "./home-page-component.js":
+/*!********************************!*\
+  !*** ./home-page-component.js ***!
+  \********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+/* harmony import */ var _header_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header-component */ "./header-component.js");
+/* harmony import */ var _recipe_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./recipe-component */ "./recipe-component.js");
+var _templateObject, _templateObject2;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+
+
+var HomePage = /*#__PURE__*/function (_LitElement) {
+  _inherits(HomePage, _LitElement);
+  function HomePage() {
+    _classCallCheck(this, HomePage);
+    return _callSuper(this, HomePage, arguments);
+  }
+  _createClass(HomePage, [{
+    key: "render",
+    value: function render() {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <app-header></app-header>\n      <recipe-component\n        image-url=\"https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n        title=\"Delicious Pasta\"\n      ></recipe-component>\n    "])));
+    }
+  }]);
+  return HomePage;
+}(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
+_defineProperty(HomePage, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral([""]))));
+customElements.define("home-page", HomePage);
+
+/***/ }),
+
 /***/ "./login-component.js":
 /*!****************************!*\
   !*** ./login-component.js ***!
@@ -2982,7 +3086,7 @@ var LoginForm = /*#__PURE__*/function (_LitElement) {
   _createClass(LoginForm, [{
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/register\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/home\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }, {
     key: "submitHandler",
@@ -3000,6 +3104,62 @@ customElements.define("login-form", LoginForm);
 
 /***/ }),
 
+/***/ "./recipe-component.js":
+/*!*****************************!*\
+  !*** ./recipe-component.js ***!
+  \*****************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+var _templateObject, _templateObject2;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
+var RecipeComponent = /*#__PURE__*/function (_LitElement) {
+  _inherits(RecipeComponent, _LitElement);
+  function RecipeComponent() {
+    var _this;
+    _classCallCheck(this, RecipeComponent);
+    _this = _callSuper(this, RecipeComponent);
+    _this.title = 'Recipe Title';
+    _this.imageUrl = 'https://images.unsplash.com/photo-1556761223-4c4282c73f77?q=80&w=1965&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D';
+    return _this;
+  }
+  _createClass(RecipeComponent, [{
+    key: "render",
+    value: function render() {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <div class=\"recipe-container\">\n        <img class=\"recipe-image\" src=\"", "\" alt=\"", " Image\">\n        <div class=\"recipe-title\">", "</div>\n      </div>\n    "])), this.imageUrl, this.title, this.title);
+    }
+  }]);
+  return RecipeComponent;
+}(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
+_defineProperty(RecipeComponent, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    .recipe-container {\n      background-color: white;\n      border-radius: 10px;\n      overflow: hidden;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);\n      text-align: center;\n      width: 22%; /* Adjust the width as needed */\n      margin: 1%; /* Adjust the margin as needed */\n      display: inline-block; /* Display recipes in a row */\n      box-sizing: border-box; /* Include padding and border in width/height */\n    }\n\n    .recipe-image {\n        width: 100%;\n        height: 60%; /* Adjust the height as needed */\n        border-top-left-radius: 10px;\n        border-top-right-radius: 10px;\n        object-fit: cover; /* Maintain aspect ratio and cover container */\n      }\n  \n      .recipe-title {\n        padding: 10px;\n        font-size: 14px; /* Adjust the font size as needed */\n        color: #333;\n      }\n  "]))));
+_defineProperty(RecipeComponent, "properties", {
+  title: {
+    type: String
+  },
+  imageUrl: {
+    type: String
+  }
+});
+customElements.define('recipe-component', RecipeComponent);
+
+/***/ }),
+
 /***/ "./register-component.js":
 /*!*******************************!*\
   !*** ./register-component.js ***!
@@ -3010,6 +3170,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
 var _templateObject, _templateObject2;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -3040,15 +3204,42 @@ var RegisterForm = /*#__PURE__*/function (_LitElement) {
   _createClass(RegisterForm, [{
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"name\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"username\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }, {
     key: "submitHandler",
     value: function submitHandler(event) {
-      var _console;
       event.preventDefault();
       var formData = new FormData(event.target);
-      (_console = console).log.apply(_console, _toConsumableArray(formData.entries()));
+      var data = _toConsumableArray(formData.entries()).reduce(function (acc, _ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          key = _ref2[0],
+          value = _ref2[1];
+        acc[key] = value;
+        return acc;
+      }, {});
+      var options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+      fetch("http://localhost:8080/users/register", options).then(function (response) {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      }).then(function (data) {
+        console.log("Data successfully fetched:", data);
+        window.dispatchEvent(new CustomEvent("vaadin-router-go", {
+          detail: {
+            pathname: "/home"
+          }
+        }));
+      })["catch"](function (error) {
+        return console.error("Fetch error:", error);
+      });
     }
   }]);
   return RegisterForm;
@@ -6218,12 +6409,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _vaadin_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vaadin/router */ "../node_modules/@vaadin/router/dist/vaadin-router.js");
 /* harmony import */ var _login_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./login-component */ "./login-component.js");
 /* harmony import */ var _register_component__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./register-component */ "./register-component.js");
-/* harmony import */ var _main_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./main.css */ "./main.css");
+/* harmony import */ var _home_page_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./home-page-component */ "./home-page-component.js");
+/* harmony import */ var _main_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./main.css */ "./main.css");
 
 
 
 
-console.log("opaa");
+
 var router = new _vaadin_router__WEBPACK_IMPORTED_MODULE_0__.Router(document.querySelector('body'));
 router.setRoutes([{
   path: "/",
@@ -6231,6 +6423,9 @@ router.setRoutes([{
 }, {
   path: "/register",
   component: 'register-form'
+}, {
+  path: "/home",
+  component: 'home-page'
 }]);
 })();
 

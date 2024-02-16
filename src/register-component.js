@@ -1,10 +1,6 @@
-import {
-  LitElement,
-  html,
-  css,
-} from "lit";
+import { LitElement, html, css } from "lit";
 
- class RegisterForm extends LitElement {
+class RegisterForm extends LitElement {
   static styles = css`
     main {
       position: fixed;
@@ -121,7 +117,7 @@ import {
             <input
               id="name"
               type="text"
-              name="name"
+              name="username"
               placeholder="Username"
               class="registration-input"
             />
@@ -157,7 +153,33 @@ import {
   submitHandler(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
-    console.log(...formData.entries());
+    const data = [...formData.entries()].reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    fetch("http://localhost:8080/users/register", options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data successfully fetched:", data);
+
+        window.dispatchEvent(
+          new CustomEvent("vaadin-router-go", { detail: { pathname: "/home" } })
+        );
+      })
+      .catch((error) => console.error("Fetch error:", error));
   }
 }
 

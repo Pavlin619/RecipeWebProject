@@ -139,7 +139,7 @@ class LoginForm extends LitElement {
             />
           </div>
           <section class="newAccount-checkbox">
-            <a href="/register" id="newAccount">You do not have an account? Create new one!</a>
+            <a href="/home" id="newAccount">You do not have an account? Create new one!</a>
             <div class="checkbox">
               <input type="checkbox" />
               <span>Remember me</span>
@@ -159,7 +159,6 @@ class LoginForm extends LitElement {
     event.preventDefault();
     const formData = new FormData(event.target);
     console.log(...formData.entries());
-   
   }
 }
 
