@@ -2,6 +2,19 @@ const router = new require("express").Router();
 const recipeModel = require("../models/Recipe");
 const userModel = require("../models/User");
 
+//GET all recipes
+router.get("/recipes", async (req, res) => {
+  try {
+      const recipe = await recipeModel.find({});
+    // Send the list of recipes
+    res.status(200).json(recipe);
+  } catch (error) {
+    // Handle errors
+    res.status(500).json({ error: error.message });
+  }
+});
+
+
 //GET user's recipes
 router.get("/:username/recipes", async (req, res) => {
   try {
@@ -30,7 +43,7 @@ router.get("/:username/recipes", async (req, res) => {
 });
 
 //GET recipe by regex
-router.get("/:username/recipes/:regex", async (req, res) => {
+router.get("/recipes/:regex", async (req, res) => {
   const recipeNameRegex = new RegExp(`.*${req.params.regex}.*`, 'i');
 
   try {
@@ -45,6 +58,21 @@ router.get("/:username/recipes/:regex", async (req, res) => {
   }
 });
 
+//GET recipe by Id
+router.get("/recipes/:Id", async (req, res) => {
+  const id =req.params.Id;
+
+  try {
+    const recipe = await recipeModel.find({
+      recipeId: id
+    });
+
+    res.status(200).json(recipe);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Internal Server Error");
+  }
+});
 
 //POST
 router.post("/:username/recipes", async (req, res) => {

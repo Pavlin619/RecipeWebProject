@@ -82,6 +82,10 @@ class LoginForm extends LitElement {
     #login-btn i {
       margin-right: 3px;
     }
+
+    #login-btn:hover {
+      border: 5px solid orange;
+    }
     .login-btn {
       margin-top: 20px;
       text-align: center;
@@ -111,11 +115,51 @@ class LoginForm extends LitElement {
     }
   `;
 
+  submitHandler(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = [...formData.entries()].reduce((acc, [key, value]) => {
+      acc[key] = value;
+      return acc;
+    }, {});
+
+    fetch("/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data)
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        console.log(res)
+
+        localStorage.setItem("auth",data);
+        window.dispatchEvent(
+          new CustomEvent("vaadin-router-go", {
+            detail: { pathname: "/users" },
+          })
+        );
+        return res.json();
+      })
+      .catch((err) => {
+        if (err.message === "Network response was not ok") {
+          // Handle the error specifically related to res.ok being false
+          alert("Invalid email or password");
+        } else {
+          // Handle other errors
+          console.error(err);
+        }
+      });
+  }
+
   render() {
     return html`
       <main>
         <header class="header">
-          <img id="header-img" src="recipe_logo.jpg" />
+          <img id="header-img" src="recipe_logo.jpg" alt="logo" />
         </header>
         <form class="login-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">
@@ -126,6 +170,7 @@ class LoginForm extends LitElement {
               name="email"
               placeholder="Email:"
               class="login-input"
+              required
             />
           </div>
           <div class="input-div">
@@ -136,10 +181,14 @@ class LoginForm extends LitElement {
               name="password"
               placeholder="Password:"
               class="login-input"
+              required
             />
           </div>
           <section class="newAccount-checkbox">
             <a href="/home" id="newAccount">You do not have an account? Create new one!</a>
+            <a href="/register" id="newAccount"
+              >You do not have an account? Create new one!</a
+            >
             <div class="checkbox">
               <input type="checkbox" />
               <span>Remember me</span>

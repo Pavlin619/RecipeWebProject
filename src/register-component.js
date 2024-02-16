@@ -110,7 +110,7 @@ class RegisterForm extends LitElement {
     return html`
       <main class="main">
         <header class="header">
-          <img id="header-img" src="recipe_logo.jpg" />
+          <img id="header-img" src="logo.jpg" alt="logo">
         </header>
         <form class="register-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">

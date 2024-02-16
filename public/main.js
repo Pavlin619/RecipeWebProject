@@ -3056,13 +3056,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
 var _templateObject, _templateObject2;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _iterableToArrayLimit(r, l) { var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"]; if (null != t) { var e, n, i, u, a = [], f = !0, o = !1; try { if (i = (t = t.call(r)).next, 0 === l) { if (Object(t) !== t) return; f = !1; } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0); } catch (r) { o = !0, n = r; } finally { try { if (!f && null != t["return"] && (u = t["return"](), Object(u) !== u)) return; } finally { if (o) throw n; } } return a; } }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i]; return arr2; }
-function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor); } }
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
@@ -3084,22 +3088,54 @@ var LoginForm = /*#__PURE__*/function (_LitElement) {
     return _callSuper(this, LoginForm, arguments);
   }
   _createClass(LoginForm, [{
-    key: "render",
-    value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/home\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
-    }
-  }, {
     key: "submitHandler",
     value: function submitHandler(event) {
-      var _console;
       event.preventDefault();
       var formData = new FormData(event.target);
-      (_console = console).log.apply(_console, _toConsumableArray(formData.entries()));
+      var data = _toConsumableArray(formData.entries()).reduce(function (acc, _ref) {
+        var _ref2 = _slicedToArray(_ref, 2),
+          key = _ref2[0],
+          value = _ref2[1];
+        acc[key] = value;
+        return acc;
+      }, {});
+      fetch("/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      }).then(function (res) {
+        if (!res.ok) {
+          throw new Error("Network response was not ok");
+        }
+        console.log(res);
+        localStorage.setItem("auth", data);
+        window.dispatchEvent(new CustomEvent("vaadin-router-go", {
+          detail: {
+            pathname: "/users"
+          }
+        }));
+        return res.json();
+      })["catch"](function (err) {
+        if (err.message === "Network response was not ok") {
+          // Handle the error specifically related to res.ok being false
+          alert("Invalid email or password");
+        } else {
+          // Handle other errors
+          console.error(err);
+        }
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" alt=\"logo\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/home\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <a href=\"/register\" id=\"newAccount\"\n              >You do not have an account? Create new one!</a\n            >\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }]);
   return LoginForm;
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(LoginForm, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    main {\n      position: fixed;\n      height: auto;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      border-radius: 10px;\n      background-color: white;\n      border: 1px solid #ccc;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n    .header {\n      text-align: center;\n    }\n\n    .error {\n      background-color: #f2dede;\n      color: #a94442;\n      padding: 10px;\n      width: 90%;\n      border-radius: 5px;\n      margin-top: 0;\n    }\n\n    #header-img {\n      margin-top: 32px;\n      height: 63px;\n      margin-bottom: 34px;\n    }\n    .login-form {\n      width: 100%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n\n    .input-div {\n      display: flex;\n      align-items: center;\n      width: 90%;\n      height: 35px;\n      margin-bottom: 20px;\n    }\n\n    .login-input {\n      width: 100%;\n      height: 100%;\n      border-radius: 5px;\n      border: 1px solid #e8e7e7;\n      padding-top: 4px;\n      padding-bottom: 4px;\n      padding-left: 8px;\n    }\n    .login-input:hover {\n      border: 3px solid orange;\n    }\n    .fas {\n      margin-right: 10px;\n    }\n    .checkbox {\n      margin-top: 10px;\n    }\n    .checkbox span {\n      margin-left: 4px;\n      font-size: 15px;\n    }\n    #login-btn {\n      width: 358px;\n      height: 32px;\n      background-color: orange;\n      color: white;\n      border-radius: 5px;\n      border: 2px solid #cccccc;\n    }\n    #login-btn i {\n      margin-right: 3px;\n    }\n    .login-btn {\n      margin-top: 20px;\n      text-align: center;\n      margin-bottom: 20px;\n    }\n\n    @media (max-width: 800px) {\n      main {\n        width: 60%;\n      }\n\n      #header-img {\n        width: 80%;\n      }\n    }\n\n    @media (min-width: 800px) and (max-width: 1200px) {\n      main {\n        width: 40%;\n      }\n    }\n\n    @media (min-width: 1200px) {\n      main {\n        width: 28%;\n      }\n    }\n  "]))));
+_defineProperty(LoginForm, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    main {\n      position: fixed;\n      height: auto;\n      top: 50%;\n      left: 50%;\n      transform: translate(-50%, -50%);\n      border-radius: 10px;\n      background-color: white;\n      border: 1px solid #ccc;\n      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n    .header {\n      text-align: center;\n    }\n\n    .error {\n      background-color: #f2dede;\n      color: #a94442;\n      padding: 10px;\n      width: 90%;\n      border-radius: 5px;\n      margin-top: 0;\n    }\n\n    #header-img {\n      margin-top: 32px;\n      height: 63px;\n      margin-bottom: 34px;\n    }\n    .login-form {\n      width: 100%;\n      display: flex;\n      flex-direction: column;\n      align-items: center;\n    }\n\n    .input-div {\n      display: flex;\n      align-items: center;\n      width: 90%;\n      height: 35px;\n      margin-bottom: 20px;\n    }\n\n    .login-input {\n      width: 100%;\n      height: 100%;\n      border-radius: 5px;\n      border: 1px solid #e8e7e7;\n      padding-top: 4px;\n      padding-bottom: 4px;\n      padding-left: 8px;\n    }\n    .login-input:hover {\n      border: 3px solid orange;\n    }\n    .fas {\n      margin-right: 10px;\n    }\n    .checkbox {\n      margin-top: 10px;\n    }\n    .checkbox span {\n      margin-left: 4px;\n      font-size: 15px;\n    }\n    #login-btn {\n      width: 358px;\n      height: 32px;\n      background-color: orange;\n      color: white;\n      border-radius: 5px;\n      border: 2px solid #cccccc;\n    }\n    #login-btn i {\n      margin-right: 3px;\n    }\n\n    #login-btn:hover {\n      border: 5px solid orange;\n    }\n    .login-btn {\n      margin-top: 20px;\n      text-align: center;\n      margin-bottom: 20px;\n    }\n\n    @media (max-width: 800px) {\n      main {\n        width: 60%;\n      }\n\n      #header-img {\n        width: 80%;\n      }\n    }\n\n    @media (min-width: 800px) and (max-width: 1200px) {\n      main {\n        width: 40%;\n      }\n    }\n\n    @media (min-width: 1200px) {\n      main {\n        width: 28%;\n      }\n    }\n  "]))));
 customElements.define("login-form", LoginForm);
 
 /***/ }),
@@ -3204,7 +3240,7 @@ var RegisterForm = /*#__PURE__*/function (_LitElement) {
   _createClass(RegisterForm, [{
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" />\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"username\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"logo.jpg\" alt=\"logo\">\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"username\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }, {
     key: "submitHandler",
