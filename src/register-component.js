@@ -165,7 +165,7 @@ class RegisterForm extends LitElement {
       },
       body: JSON.stringify(data),
     };
-    fetch("http://localhost:8080/users/register", options)
+    fetch("http://localhost:8080/register", options)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -174,7 +174,9 @@ class RegisterForm extends LitElement {
       })
       .then((data) => {
         console.log("Data successfully fetched:", data);
-
+        console.log(data.user.username);
+        window.localStorage.setItem('username', data.user.username);
+        console.log(window.localStorage.getItem('username'));
         window.dispatchEvent(
           new CustomEvent("vaadin-router-go", { detail: { pathname: "/home" } })
         );

@@ -1,7 +1,8 @@
 // home-page.js
 import { LitElement, html, css } from "lit";
 import { AppHeader } from "./header-component";
-import "./recipe-component"; // Import the recipe-component
+import { RecipeComponent } from "./recipe-component";
+import { AddRecipeForm } from "./add-recipe-component";
 
 class HomePage extends LitElement {
   static styles = css`
@@ -22,6 +23,8 @@ class HomePage extends LitElement {
     super();
     this.recipes = [];
     this.fetchRecipes();
+    this.showAddRecipe = false;
+    this.handleAddRecipeClicked = this.handleAddRecipeClicked.bind(this);
   }
 
   async fetchRecipes() {
@@ -49,7 +52,8 @@ class HomePage extends LitElement {
   render() {
     console.log(this.recipes)
     return html`
-      <app-header></app-header>
+      <app-header @add-recipe-clicked=${this.handleAddRecipeClicked}></app-header>
+      ${this.showAddRecipe ? html`<add-recipe-form @recipe-added=${this.handleRecipeAddedSuccessfully}></add-recipe-form>` : ''}
       <div class="recipe-list">
         ${this.recipes.map(
           (recipe) => html`
@@ -63,6 +67,18 @@ class HomePage extends LitElement {
         )}
       </div>
     `;
+  }
+
+  handleAddRecipeClicked() {
+    // Toggle the showAddRecipe property to show/hide add-recipe
+    this.showAddRecipe = !this.showAddRecipe;
+    this.requestUpdate();
+  }
+
+  handleRecipeAddedSuccessfully() {
+    this.showAddRecipe = !this.showAddRecipe;
+    this.fetchRecipes();
+    this.requestUpdate();
   }
 }
 

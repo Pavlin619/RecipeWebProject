@@ -35,7 +35,7 @@ app.use("/", apiRouter);
 
 app.get("*", (req, res) => {
   if (req.url == 'favicon.ico') return res.status(404).end();
-  res.sendFile(path.resolve("./index.html"))
+  res.sendFile('index.html', {root: 'public'});
 })
 
 //catch 404 and forward to error handler

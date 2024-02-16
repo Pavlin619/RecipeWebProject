@@ -1,7 +1,7 @@
 import { Router } from "@vaadin/router";
-import "./login-component";
-import "./register-component";
-import "./home-page-component";
+import { LoginForm } from "./login-component";
+import { RegisterForm } from "./register-component";
+import { HomePage } from "./home-page-component";
 import "./main.css";
 
 const router = new Router(document.querySelector("body"));

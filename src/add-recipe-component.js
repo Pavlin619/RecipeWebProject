@@ -98,7 +98,7 @@ class AddRecipeForm extends LitElement {
 
     const username = window.localStorage.getItem('username');
 
-    fetch(`http://localhost:8080/users/${username}/register`, options)
+    fetch(`http://localhost:8080/users/${username}/recipes`, options)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -108,9 +108,12 @@ class AddRecipeForm extends LitElement {
       .then((data) => {
         console.log("Data successfully fetched:", data);
 
-        window.dispatchEvent(
-          new CustomEvent("vaadin-router-go", { detail: { pathname: "/home" } })
-        );
+        const event = new CustomEvent('recipe-added', {
+            bubbles: true,
+            composed: true,
+          });
+      
+          this.dispatchEvent(event);
       })
       .catch((error) => console.error("Fetch error:", error));
   }

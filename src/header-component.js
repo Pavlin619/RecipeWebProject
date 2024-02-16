@@ -106,8 +106,12 @@ class AppHeader extends LitElement {
   }
 
   handleCreateRecipeClick() {
-    // Your logic for the 'Create a Recipe' button click
-    console.log("Create a Recipe button clicked");
+    const event = new CustomEvent('add-recipe-clicked', {
+      bubbles: true,
+      composed: true,
+    });
+
+    this.dispatchEvent(event);
   }
 
   handleProfileClick() {

@@ -21,7 +21,6 @@ router.get("/", async (req, res) => {
   res.send(userList);
 });
 
-
 //delete user
 router.delete("/:username",async (req,res)=>{
   const userExist = await userModel.findOne({ email: req.body.email });
