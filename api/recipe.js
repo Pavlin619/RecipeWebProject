@@ -59,12 +59,12 @@ router.get("/recipes/:regex", async (req, res) => {
 });
 
 //GET recipe by Id
-router.get("/recipes/:Id", async (req, res) => {
-  const id =req.params.Id;
+router.get("/recipe-details/:Id", async (req, res) => {
+  const id = req.params.Id;
 
   try {
-    const recipe = await recipeModel.find({
-      recipeId: id
+    const recipe = await recipeModel.findOne({
+      _id: id
     });
 
     res.status(200).json(recipe);

@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
   if (req.body.password !== userExist.password)
     return res.status(400).send("Invalid Password");
 
-    res.status(200).send(userExist.id);
+    res.status(200).send(userExist);
 });
 
 //register

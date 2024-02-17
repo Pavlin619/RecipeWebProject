@@ -24,13 +24,11 @@ router.get("/:recipeId", async (req, res) => {
 router.post("/:recipeId", async (req, res) => {
     const comment = req.body.comment;
     const userName = req.body.user;
-    const date = new Date().getDate;
     const recipeId=req.params.recipeId;
   
     const commentToSave = new commentModel({
       comment: comment,
       user: userName,
-      date: date,
       recipe: recipeId
     });
     

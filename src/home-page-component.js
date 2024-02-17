@@ -4,6 +4,7 @@ import { AppHeader } from "./header-component";
 import { RecipeComponent } from "./recipe-component";
 import { AddRecipeForm } from "./add-recipe-component";
 import { SearchComponent } from "./search-component";
+import { Router } from '@vaadin/router';
 
 class HomePage extends LitElement {
   static styles = css`
@@ -43,11 +44,8 @@ class HomePage extends LitElement {
 
   handleRecipeClick(event) {
     const recipeId = event.detail.recipeId;
-    window.dispatchEvent(
-      new CustomEvent("vaadin-router-go", {
-        detail: { pathname: `/recipes/${recipeId}` },
-      })
-    );
+    console.log(recipeId)
+    Router.go(`/recipe-details?recipeId=${recipeId}`)
   }
 
   render() {

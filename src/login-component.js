@@ -134,16 +134,18 @@ class LoginForm extends LitElement {
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log(res)
-
-        localStorage.setItem("auth",JSON.stringify(data.email));
         window.dispatchEvent(
           new CustomEvent("vaadin-router-go", {
             detail: { pathname: "/home" },
           })
         );
         return res.json();
-      })
+      }).then(
+        data => {
+          console.log(data);
+          window.localStorage.setItem('username', data.username);
+        }
+      )
       .catch((err) => {
         if (err.message === "Network response was not ok") {
           // Handle the error specifically related to res.ok being false
