@@ -1,3 +1,4 @@
+import { Router } from "@vaadin/router";
 import { LitElement, html, css } from "lit";
 
 class AppHeader extends LitElement {
@@ -77,26 +78,26 @@ class AppHeader extends LitElement {
         <div class="header-content">
           <div class="logo">
             <!-- Placeholder for an icon, you can replace it with your preferred icon image -->
-            <img src="./components/recipe_logo.png" alt="Recipe Icon" />
+            <img src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png" alt="Recipe Icon" />
           </div>
           <div class="labels-buttons">
             <div class="labels">
               <nav>
                 <ul>
-                  <li><a href="#recipes">Recipes</a></li>
+                  <li><a href="/home">Recipes</a></li>
                   <li><a href="#about">About</a></li>
                 </ul>
               </nav>
             </div>
             <div class="buttons">
-              <button
+              <button href="#new"
                 id="createRecipeBtn"
                 @click=${this.handleCreateRecipeClick}
               >
                 Create a Recipe
               </button>
               <button id="profileBtn" @click=${this.handleProfileClick}>
-                Go to Profile
+                Log out
               </button>
             </div>
           </div>
@@ -115,6 +116,7 @@ class AppHeader extends LitElement {
   }
 
   handleProfileClick() {
+    Router.go('/');
     // Your logic for the 'Go to Profile' button click
     console.log("Go to Profile button clicked");
   }

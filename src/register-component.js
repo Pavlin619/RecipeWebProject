@@ -110,7 +110,7 @@ class RegisterForm extends LitElement {
     return html`
       <main class="main">
         <header class="header">
-          <img id="header-img" src="logo.jpg" alt="logo">
+          <img id="header-img" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png" alt="logo">
         </header>
         <form class="register-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">

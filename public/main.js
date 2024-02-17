@@ -3106,18 +3106,18 @@ var CommentSheme = /*#__PURE__*/function (_LitElement) {
       value: null
     });
     _this.comments = [];
-    _classPrivateFieldSet(_assertThisInitialized(_this), _socket, (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__.io)("http://localhost:8080"));
-    _classPrivateFieldGet(_assertThisInitialized(_this), _socket).on("message", function (message) {
-      _this.comments.push(message);
-      console.log('Comments', _this.comments);
+    _classPrivateFieldSet(_assertThisInitialized(_this), _socket, (0,socket_io_client__WEBPACK_IMPORTED_MODULE_1__.io)());
+    _classPrivateFieldGet(_assertThisInitialized(_this), _socket).on("comment", function (updatedData) {
+      console.log('Received message:', updatedData);
+      _this.comments = updatedData;
       _this.requestUpdate();
     });
     return _this;
   }
   _createClass(CommentSheme, [{
-    key: "fetchData",
+    key: "firstUpdated",
     value: function () {
-      var _fetchData = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      var _firstUpdated = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var response, data;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
@@ -3139,7 +3139,6 @@ var CommentSheme = /*#__PURE__*/function (_LitElement) {
             case 9:
               data = _context.sent;
               this.comments = data;
-              //return data;
               _context.next = 16;
               break;
             case 13:
@@ -3151,49 +3150,6 @@ var CommentSheme = /*#__PURE__*/function (_LitElement) {
               return _context.stop();
           }
         }, _callee, this, [[0, 13]]);
-      }));
-      function fetchData() {
-        return _fetchData.apply(this, arguments);
-      }
-      return fetchData;
-    }()
-  }, {
-    key: "firstUpdated",
-    value: function () {
-      var _firstUpdated = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var response, data;
-        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
-          while (1) switch (_context2.prev = _context2.next) {
-            case 0:
-              _context2.prev = 0;
-              console.log(this.id);
-              _context2.next = 4;
-              return fetch("/users/comments/".concat(this.id));
-            case 4:
-              response = _context2.sent;
-              if (response.ok) {
-                _context2.next = 7;
-                break;
-              }
-              throw new Error(response.statusText);
-            case 7:
-              _context2.next = 9;
-              return response.json();
-            case 9:
-              data = _context2.sent;
-              this.comments = data;
-              //return data;
-              _context2.next = 16;
-              break;
-            case 13:
-              _context2.prev = 13;
-              _context2.t0 = _context2["catch"](0);
-              console.error(_context2.t0);
-            case 16:
-            case "end":
-              return _context2.stop();
-          }
-        }, _callee2, this, [[0, 13]]);
       }));
       function firstUpdated() {
         return _firstUpdated.apply(this, arguments);
@@ -3223,10 +3179,14 @@ var CommentSheme = /*#__PURE__*/function (_LitElement) {
         if (!res.ok) {
           throw new Error("Network response was not ok");
         }
-        console.log(res);
-        _this2.fetchData();
+
+        //searchInput.value="";
+        if (searchTerm !== "") {
+          _classPrivateFieldGet(_this2, _socket).emit("comment", searchTerm);
+          _this2.shadowRoot.getElementById("inputComment").value = ""; // Clear input field
+        }
+        _this2.firstUpdated();
         _this2.requestUpdate();
-        _classPrivateFieldGet(_this2, _socket).emit("message", searchTerm);
       })["catch"](function (err) {
         console.error(err);
       });
@@ -3234,15 +3194,14 @@ var CommentSheme = /*#__PURE__*/function (_LitElement) {
   }, {
     key: "render",
     value: function render() {
-      console.log('Render', this.comments);
       return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <div id=\"comments\">\n        <h2>Comments</h2>\n        <hr />\n        <ul>\n          ", "\n        </ul>\n        <div id=\"addComment\">\n          <input\n            placeholder=\"Type comment...\"\n            type=\"text\"\n            id=\"inputComment\"\n            name=\"comment\"\n          />\n          <button @click=", " type=\"button\">Add Comment</button>\n        </div>\n      </div>\n    "])), this.comments.map(function (com) {
-        return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<li>\n              <div>\n                <div id=\"dataCom\">\n                  <h6 id=\"user\">", "</h6>\n                  <p>", "</p>\n                </div>\n                <p>", "</p>\n              </div>\n            </li>"])), com.user, com.date, com.comment);
+        return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["<li>\n              <div>\n                <div id=\"dataCom\">\n                  <h4 id=\"user\">", "</h4>\n                  <p>", "</p>\n                </div>\n                <p>", "</p>\n              </div>\n            </li>"])), com.user, com.date, com.comment);
       }), this.inputHandler);
     }
   }]);
   return CommentSheme;
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(CommentSheme, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    #comments {\n      display: flex;\n      justify-content: left;\n      align-items: start;\n      background-color: white;\n      flex-direction: column;\n      width: 80%;\n      height: 80%;\n      background-color: orange;\n      padding: 1rem;\n      margin: 0.5rem;\n    }\n\n    #comments ul {\n      list-style: none;\n    }\n    #comments ul li {\n      display: flex;\n      justify-content: center;\n      align-items: start;\n      flex-direction: column;\n    }\n    #addComment {\n      width: 100%;\n    }\n    #inputComment {\n      width: 80%;\n      border-color: orange;\n      padding: 5px;\n    }\n    #inputComment:hover {\n      border-color: rgb(243, 241, 239);\n    }\n\n    #addComment button {\n      border-color: orange;\n      background-color: white;\n      border-radius: 1rem;\n      padding: 5px;\n      color: green;\n    }\n    #addComment button:hover {\n      border-color: rgb(243, 241, 239);\n    }\n    p {\n      margin: 10px;\n    }\n  "]))));
+_defineProperty(CommentSheme, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    #comments {\n      display: flex;\n      justify-content: left;\n      align-items: start;\n      background-color: white;\n      flex-direction: column;\n      width: 70%;\n      height: 80%;\n      background-color: orange;\n      padding: 2rem;\n      margin: 0.5rem;\n      margin-left:11rem;\n    }\n\n    #comments ul {\n      list-style: none;\n      width:100%;\n      height:100%;\n      display: flex;\n      flex-direction: column;\n      justify-content: center;\n      align-items: start;\n    }\n    #comments ul li {\n      background-color:white;\n      padding:5px;\n      width:90%;\n      border-radius:10px;\n      margin:1px;\n    }\n    #addComment {\n      display:flex;\n      width: 100%;\n      justify-content:center;\n    }\n    #inputComment {\n      width: 85%;\n      border-color: orange;\n      padding: 5px;\n    }\n    #inputComment:hover {\n      border-color: rgb(243, 241, 239);\n    }\n\n    #addComment button {\n      border-color: orange;\n      background-color: white;\n      border-radius: 1rem;\n      padding: 5px;\n      color: green;\n    }\n    #addComment button:hover {\n      border-color: rgb(243, 241, 239);\n    }\n    p {\n      margin: 10px;\n    }\n  "]))));
 _defineProperty(CommentSheme, "properties", {
   id: {
     type: String
@@ -3262,7 +3221,8 @@ customElements.define("comment-form", CommentSheme);
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+/* harmony import */ var _vaadin_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vaadin/router */ "../node_modules/@vaadin/router/dist/vaadin-router.js");
+/* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
 var _templateObject, _templateObject2;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3280,6 +3240,7 @@ function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key i
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
 
+
 var AppHeader = /*#__PURE__*/function (_LitElement) {
   _inherits(AppHeader, _LitElement);
   function AppHeader() {
@@ -3289,7 +3250,7 @@ var AppHeader = /*#__PURE__*/function (_LitElement) {
   _createClass(AppHeader, [{
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <header>\n        <div class=\"header-content\">\n          <div class=\"logo\">\n            <!-- Placeholder for an icon, you can replace it with your preferred icon image -->\n            <img src=\"./components/recipe_logo.png\" alt=\"Recipe Icon\" />\n          </div>\n          <div class=\"labels-buttons\">\n            <div class=\"labels\">\n              <nav>\n                <ul>\n                  <li><a href=\"#recipes\">Recipes</a></li>\n                  <li><a href=\"#about\">About</a></li>\n                </ul>\n              </nav>\n            </div>\n            <div class=\"buttons\">\n              <button\n                id=\"createRecipeBtn\"\n                @click=", "\n              >\n                Create a Recipe\n              </button>\n              <button id=\"profileBtn\" @click=", ">\n                Go to Profile\n              </button>\n            </div>\n          </div>\n        </div>\n      </header>\n    "])), this.handleCreateRecipeClick, this.handleProfileClick);
+      return (0,lit__WEBPACK_IMPORTED_MODULE_1__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <header>\n        <div class=\"header-content\">\n          <div class=\"logo\">\n            <!-- Placeholder for an icon, you can replace it with your preferred icon image -->\n            <img src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png\" alt=\"Recipe Icon\" />\n          </div>\n          <div class=\"labels-buttons\">\n            <div class=\"labels\">\n              <nav>\n                <ul>\n                  <li><a href=\"/home\">Recipes</a></li>\n                  <li><a href=\"#about\">About</a></li>\n                </ul>\n              </nav>\n            </div>\n            <div class=\"buttons\">\n              <button href=\"#new\"\n                id=\"createRecipeBtn\"\n                @click=", "\n              >\n                Create a Recipe\n              </button>\n              <button id=\"profileBtn\" @click=", ">\n                Log out\n              </button>\n            </div>\n          </div>\n        </div>\n      </header>\n    "])), this.handleCreateRecipeClick, this.handleProfileClick);
     }
   }, {
     key: "handleCreateRecipeClick",
@@ -3303,13 +3264,14 @@ var AppHeader = /*#__PURE__*/function (_LitElement) {
   }, {
     key: "handleProfileClick",
     value: function handleProfileClick() {
+      _vaadin_router__WEBPACK_IMPORTED_MODULE_0__.Router.go('/');
       // Your logic for the 'Go to Profile' button click
       console.log("Go to Profile button clicked");
     }
   }]);
   return AppHeader;
-}(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(AppHeader, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    header {\n      background-image: url(\"./header-background.jpg\");\n      color: #fff;\n      padding: 15px;\n      text-align: center;\n    }\n\n    .header-content {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n    }\n\n    .logo img {\n      width: 40px; /* Adjust the width of the icon as needed */\n      height: 40px; /* Adjust the height of the icon as needed */\n      margin-right: 10px;\n    }\n\n    h1 {\n      margin: 0;\n    }\n\n    nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n    }\n\n    nav li {\n      display: inline;\n      margin-right: 20px;\n    }\n\n    nav a {\n      text-decoration: none;\n      color: #fff;\n      font-weight: bold;\n    }\n\n    .buttons {\n      margin-top: 15px;\n    }\n\n    button {\n      padding: 10px 20px;\n      font-size: 16px;\n      cursor: pointer;\n      border: none;\n      border-radius: 5px;\n    }\n\n    #createRecipeBtn {\n      background-color: #2ecc71;\n      color: #fff;\n    }\n\n    #profileBtn {\n      background-color: orange;\n      color: #fff;\n    }\n\n    .labels-buttons {\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n    }\n  "]))));
+}(lit__WEBPACK_IMPORTED_MODULE_1__.LitElement);
+_defineProperty(AppHeader, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_1__.css)(_templateObject2 || (_templateObject2 = _taggedTemplateLiteral(["\n    header {\n      background-image: url(\"./header-background.jpg\");\n      color: #fff;\n      padding: 15px;\n      text-align: center;\n    }\n\n    .header-content {\n      display: flex;\n      align-items: center;\n      justify-content: space-between;\n    }\n\n    .logo img {\n      width: 40px; /* Adjust the width of the icon as needed */\n      height: 40px; /* Adjust the height of the icon as needed */\n      margin-right: 10px;\n    }\n\n    h1 {\n      margin: 0;\n    }\n\n    nav ul {\n      list-style: none;\n      margin: 0;\n      padding: 0;\n    }\n\n    nav li {\n      display: inline;\n      margin-right: 20px;\n    }\n\n    nav a {\n      text-decoration: none;\n      color: #fff;\n      font-weight: bold;\n    }\n\n    .buttons {\n      margin-top: 15px;\n    }\n\n    button {\n      padding: 10px 20px;\n      font-size: 16px;\n      cursor: pointer;\n      border: none;\n      border-radius: 5px;\n    }\n\n    #createRecipeBtn {\n      background-color: #2ecc71;\n      color: #fff;\n    }\n\n    #profileBtn {\n      background-color: orange;\n      color: #fff;\n    }\n\n    .labels-buttons {\n      display: flex;\n      flex-direction: row;\n      align-items: center;\n    }\n  "]))));
 customElements.define("app-header", AppHeader);
 
 /***/ }),
@@ -3410,7 +3372,6 @@ var HomePage = /*#__PURE__*/function (_LitElement) {
     key: "handleRecipeClick",
     value: function handleRecipeClick(event) {
       var recipeId = event.detail.recipeId;
-      console.log(recipeId);
       _vaadin_router__WEBPACK_IMPORTED_MODULE_5__.Router.go("/recipe-details?recipeId=".concat(recipeId));
     }
   }, {
@@ -3541,7 +3502,7 @@ var LoginForm = /*#__PURE__*/function (_LitElement) {
   }, {
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"recipe_logo.jpg\" alt=\"logo\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/register\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main>\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png\" alt=\"logo\" />\n        </header>\n        <form class=\"login-form\" @submit=", ">\n          <div class=\"input-div\">\n            <i class=\"fas fa-user\" id=\"user\"></i>\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <div class=\"input-div\">\n            <i class=\"fas fa-key\"></i>\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password:\"\n              class=\"login-input\"\n              required\n            />\n          </div>\n          <section class=\"newAccount-checkbox\">\n            <a href=\"/register\" id=\"newAccount\">You do not have an account? Create new one!</a>\n            <div class=\"checkbox\">\n              <input type=\"checkbox\" />\n              <span>Remember me</span>\n            </div>\n          </section>\n          <div class=\"login-btn\">\n            <button id=\"login-btn\" type=\"submit\" name=\"login\">\n              <i class=\"fas fa-sign-in-alt\"></i>Login\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }]);
   return LoginForm;
@@ -3668,11 +3629,11 @@ var RecipePage = /*#__PURE__*/function (_LitElement) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.prev = 0;
-              // Retrieve the recipeId from the local storage
               searchParams = new URLSearchParams(window.location.search);
-              recipeId = searchParams.get('recipeId');
+              recipeId = searchParams.get("recipeId");
               this.recipeId = recipeId;
-              console.log('Component', recipeId);
+              // Retrieve the recipeId from the local storage
+              console.log("Component", recipeId);
               // Fetch the recipe data using the recipeId
               _context.next = 7;
               return fetch("/users/recipe-details/".concat(recipeId));
@@ -3710,7 +3671,7 @@ var RecipePage = /*#__PURE__*/function (_LitElement) {
   }, {
     key: "render",
     value: function render() {
-      console.log('recipeId', this.recipeId);
+      console.log("recipeId", this.recipeId);
 
       // Check if recipe data is available
       if (!this.recipe) {
@@ -3723,7 +3684,7 @@ var RecipePage = /*#__PURE__*/function (_LitElement) {
   }]);
   return RecipePage;
 }(lit__WEBPACK_IMPORTED_MODULE_0__.LitElement);
-_defineProperty(RecipePage, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    section {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      background-color: white;\n      border-radius: 5%;\n      flex-direction: column;\n      border-color: solid 10px orange;\n      width: 80%;\n      height: 80%;\n    }\n    #recipe-name {\n      color: orange;\n      padding: 0.6rem;\n      font-size: xx-large;\n    }\n    #img {\n      margin: 2rem;\n    }\n    div {\n      justify-content: left;\n      width: 60%;\n    }\n    #list {\n      list-style: decimal;\n    }\n  "]))));
+_defineProperty(RecipePage, "styles", (0,lit__WEBPACK_IMPORTED_MODULE_0__.css)(_templateObject3 || (_templateObject3 = _taggedTemplateLiteral(["\n    section {\n      display: flex;\n      justify-content: center;\n      align-items: center;\n      background-color: white;\n      border-radius: 5%;\n      flex-direction: column;\n      border-color: solid 10px orange;\n      width: 70%;\n      height: 70%;\n      margin-left: 13rem;\n    }\n    #recipe-name {\n      color: orange;\n      padding: 0.6rem;\n      font-size: xx-large;\n    }\n    #img {\n      margin: 2rem;\n      width: 27rem;\n      height: 27rem;\n    }\n    div {\n      justify-content: left;\n      width: 60%;\n    }\n    #list {\n      list-style: decimal;\n    }\n  "]))));
 _defineProperty(RecipePage, "properties", {
   recipeId: {
     type: String
@@ -3780,7 +3741,7 @@ var RegisterForm = /*#__PURE__*/function (_LitElement) {
   _createClass(RegisterForm, [{
     key: "render",
     value: function render() {
-      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"logo.jpg\" alt=\"logo\">\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"username\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
+      return (0,lit__WEBPACK_IMPORTED_MODULE_0__.html)(_templateObject || (_templateObject = _taggedTemplateLiteral(["\n      <main class=\"main\">\n        <header class=\"header\">\n          <img id=\"header-img\" src=\"https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png\" alt=\"logo\">\n        </header>\n        <form class=\"register-form\" @submit=", ">\n          <div class=\"input-div\">\n            <input\n              id=\"name\"\n              type=\"text\"\n              name=\"username\"\n              placeholder=\"Username\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"email\"\n              type=\"email\"\n              name=\"email\"\n              placeholder=\"Email\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"input-div\">\n            <input\n              id=\"password\"\n              type=\"password\"\n              name=\"password\"\n              placeholder=\"Password\"\n              class=\"registration-input\"\n            />\n          </div>\n          <div class=\"register-btn\">\n            <button id=\"register-btn\" type=\"submit\" name=\"signup\">\n              <i class=\"fas fa-sign-in-alt\"></i>Register\n            </button>\n          </div>\n        </form>\n      </main>\n    "])), this.submitHandler.bind(this));
     }
   }, {
     key: "submitHandler",
@@ -3836,6 +3797,7 @@ customElements.define("register-form", RegisterForm);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lit */ "../node_modules/lit/index.js");
+/* harmony import */ var _vaadin_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @vaadin/router */ "../node_modules/@vaadin/router/dist/vaadin-router.js");
 var _templateObject, _templateObject2;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
@@ -3852,6 +3814,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+
 
 var SearchComponent = /*#__PURE__*/function (_LitElement) {
   _inherits(SearchComponent, _LitElement);
@@ -3894,6 +3857,7 @@ var SearchComponent = /*#__PURE__*/function (_LitElement) {
             composed: true
           });
           _this.dispatchEvent(event);
+          _vaadin_router__WEBPACK_IMPORTED_MODULE_1__.Router.go('/home#search');
         })["catch"](function (error) {
           return console.error("Fetch error:", error);
         });

@@ -161,7 +161,7 @@ class LoginForm extends LitElement {
     return html`
       <main>
         <header class="header">
-          <img id="header-img" src="recipe_logo.jpg" alt="logo" />
+          <img id="header-img" src="https://cdn1.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/eat-circle-orange-512.png" alt="logo" />
         </header>
         <form class="login-form" @submit=${this.submitHandler.bind(this)}>
           <div class="input-div">

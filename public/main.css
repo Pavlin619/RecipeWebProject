@@ -5,12 +5,15 @@
   box-sizing: border-box; }
 
 body {
-  background-image: url(ea4e0d12845f5aca0e24.jpg);
+  background-image: url(f6cae805e2a1ce668d05.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 16px; }
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center; }
 
 h1 {
   color: palevioletred; }

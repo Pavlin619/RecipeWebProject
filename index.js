@@ -6,17 +6,18 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
-
 const createError = require("http-errors");
 const favicon = require("serve-favicon");
 const app = express();
-const http = require('http');
+const http = require("http");
 const server = http.createServer(app);
 const port = 8080;
 const apiRouter = require("./api");
 
 const { Server } = require("socket.io");
 const io = new Server(server);
+
+let connectedSockets = [];
 
 //Connect to db ---------------
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nqoas00.mongodb.net/?retryWrites=true&w=majority`;
@@ -55,15 +56,17 @@ app.use((req, res) => {
 });
 
 io.on("connection", (socket) => {
-  connectedSockets = connectedSockets.concat(socket);
-  socket.on("message", (message) => {
-    for (const socket of connectedSockets) {
-      socket.send(message);
-    }
+  console.log("A client connected");
+  connectedSockets.push(socket);
+  socket.on("comment", (comment) => {
+    console.log("Received new comment:", comment);
+
+    io.emit("commentUpdated", updatedData);
   });
 
   socket.on("disconnected", () => {
-    connectedSockets = connectedSockets.filter(s => s !== socket);
+    console.log("A client disconnected");
+    connectedSockets = connectedSockets.filter((s) => s !== socket);
   });
 });
 

@@ -1,4 +1,5 @@
 import { LitElement, html, css } from "lit";
+import { Router } from '@vaadin/router';
 
 class SearchComponent extends LitElement {
   static styles = css`
@@ -74,7 +75,9 @@ class SearchComponent extends LitElement {
             bubbles: true,
             composed: true,
           });
+
           this.dispatchEvent(event);
+          Router.go('/home#search')
         })
         .catch((error) => console.error("Fetch error:", error));
     }

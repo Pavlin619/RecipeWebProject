@@ -1,5 +1,5 @@
 import { LitElement, html, css } from "lit";
-import "./comments-component"
+import "./comments-component";
 
 class RecipePage extends LitElement {
   static styles = css`
@@ -11,8 +11,9 @@ class RecipePage extends LitElement {
       border-radius: 5%;
       flex-direction: column;
       border-color: solid 10px orange;
-      width: 80%;
-      height: 80%;
+      width: 70%;
+      height: 70%;
+      margin-left: 13rem;
     }
     #recipe-name {
       color: orange;
@@ -21,6 +22,8 @@ class RecipePage extends LitElement {
     }
     #img {
       margin: 2rem;
+      width: 27rem;
+      height: 27rem;
     }
     div {
       justify-content: left;
@@ -45,20 +48,20 @@ class RecipePage extends LitElement {
 
   async fetchRecipeById() {
     try {
-      // Retrieve the recipeId from the local storage
       const searchParams = new URLSearchParams(window.location.search);
-      const recipeId = searchParams.get('recipeId');
+      const recipeId = searchParams.get("recipeId");
       this.recipeId = recipeId;
-console.log('Component', recipeId)
+      // Retrieve the recipeId from the local storage
+      console.log("Component", recipeId);
       // Fetch the recipe data using the recipeId
       const response = await fetch(`/users/recipe-details/${recipeId}`);
       if (!response.ok) {
         throw new Error(response.statusText);
       }
-     
+
       // Parse the response JSON and set it to the recipe property
       this.recipe = await response.json();
-      console.log(this.recipe)
+      console.log(this.recipe);
       // Trigger a re-render to update the UI with the fetched recipe data
     } catch (error) {
       console.error(error);
@@ -66,7 +69,7 @@ console.log('Component', recipeId)
   }
 
   render() {
-    console.log('recipeId', this.recipeId);
+    console.log("recipeId", this.recipeId);
 
     // Check if recipe data is available
     if (!this.recipe) {

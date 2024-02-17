@@ -44,7 +44,6 @@ class HomePage extends LitElement {
 
   handleRecipeClick(event) {
     const recipeId = event.detail.recipeId;
-    console.log(recipeId)
     Router.go(`/recipe-details?recipeId=${recipeId}`)
   }
 

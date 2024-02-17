@@ -4,7 +4,7 @@
   "description": "",
   "main": "./index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node index.js",
     "build": "webpack -w",
     "start": "nodemon index.js",
     "webapp:dev": "concurrently 'npm:build' 'npm:start' "
